@@ -1,0 +1,18 @@
+{
+  "name": "ur12e-rtc-smoke",
+  "queue": "REPLACE_QUEUE",
+  "image": "REPLACE_IMAGE_WITH_DIGEST",
+  "gpu_resource": "REPLACE_GPU_RESOURCE",
+  "gpus": 1,
+  "cpu": 16,
+  "memory": 128,
+  "shared_memory": 32,
+  "priority": "normal",
+  "env": {"HF_HOME": "/cache/huggingface", "OPENPI_DATA_HOME": "/cache/openpi"},
+  "mounts": [
+    {"type": "pfsl2", "id": "REPLACE_DATASET_STORAGE", "source_path": "/datasets", "mount_path": "/datasets", "read_only": true},
+    {"type": "pfsl2", "id": "REPLACE_WEIGHT_STORAGE", "source_path": "/weights", "mount_path": "/weights", "read_only": true},
+    {"type": "pfsl2", "id": "REPLACE_OUTPUT_STORAGE", "source_path": "/output", "mount_path": "/output", "read_only": false},
+    {"type": "pfsl2", "id": "REPLACE_CACHE_STORAGE", "source_path": "/cache", "mount_path": "/cache", "read_only": false}
+  ]
+}

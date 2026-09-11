@@ -1,0 +1,14 @@
+.git
+.venv*
+**/__pycache__
+.pytest_cache
+.ruff_cache
+artifacts
+plans
+.env
+.DS_Store
+
+.vscode/
+**/station.local*.json
+*.pem
+*.key

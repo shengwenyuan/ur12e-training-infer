@@ -1,0 +1,18 @@
+FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04@sha256:8aef630a54bc5c5146ae5ce68e6af5caa3df0fb690bb91544175c91f307e4356
+ARG VERSION=development
+ARG SOURCE_REVISION=uncommitted
+LABEL org.opencontainers.image.version=$VERSION org.opencontainers.image.revision=$SOURCE_REVISION
+RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-pip python3-venv ffmpeg libgl1 libglib2.0-0 && rm -rf /var/lib/apt/lists/*
+RUN python3 -m venv /opt/venv
+ENV PATH=/opt/venv/bin:$PATH PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HF_HOME=/cache/huggingface OPENPI_DATA_HOME=/cache/openpi XLA_PYTHON_CLIENT_PREALLOCATE=false
+COPY training/pi05_rtc/requirements-gpu.lock /tmp/requirements.lock
+RUN pip install --require-hashes -r /tmp/requirements.lock
+ENV JAX_COMPILATION_CACHE_DIR=/cache/jax HF_HUB_OFFLINE=1 HF_DATASETS_OFFLINE=1
+WORKDIR /app
+COPY pyproject.toml /app/
+COPY training /app/training
+COPY infer /app/infer
+RUN pip install --no-deps --no-build-isolation .
+USER 1000:1000
+ENTRYPOINT ["python", "-m", "training.cli"]
+CMD ["--help"]

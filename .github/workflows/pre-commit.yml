@@ -1,0 +1,12 @@
+name: Style checks
+on: [push, pull_request]
+jobs:
+  style:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r training/pi05_rtc/requirements-cpu.in
+      - run: python -m training.check

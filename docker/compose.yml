@@ -1,0 +1,55 @@
+services:
+  train:
+    profiles: [gpu]
+    image: ur12e-training:pi05-rtc
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.gpu
+    platform: linux/amd64
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    gpus: all
+    shm_size: 16gb
+    volumes:
+      - ${DATASET_ROOT:-../artifacts/datasets}:/datasets:ro
+      - ${WEIGHT_ROOT:-../artifacts/weights}:/weights:ro
+      - ${OUTPUT_ROOT:-../artifacts/output}:/output
+      - ${CACHE_ROOT:-../artifacts/cache}:/cache
+    command: ["--help"]
+  server:
+    profiles: [gpu]
+    image: ur12e-training:pi05-rtc
+    platform: linux/amd64
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    gpus: all
+    entrypoint: [python, -m, infer.pi05_rtc.server]
+    command: [--model, pi05_rtc, --checkpoint, /checkpoint, --tokenizer, /weights/paligemma_tokenizer.model, --host, 0.0.0.0]
+    ports: ["127.0.0.1:8000:8000"]
+    volumes:
+      - ${CHECKPOINT_DIR:-../artifacts/checkpoint}:/checkpoint:ro
+      - ${WEIGHT_ROOT:-../artifacts/weights}:/weights:ro
+      - ${CACHE_ROOT:-../artifacts/cache}:/cache
+  client:
+    profiles: [robot]
+    image: ur12e-infer:jazzy
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.robot
+    platform: linux/amd64
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    network_mode: host
+    environment:
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-42}"
+    volumes:
+      - ${CONTROL_LOCK_ROOT:-../artifacts/control}:/run/ur12e-control
+    command: [ur12e-infer, --robot, fake, --server, "${POLICY_URL:-ws://127.0.0.1:8000}", --prompt, "${TASK_PROMPT:-software test}", --lock, /run/ur12e-control/owner.lock]
+  supervisor:
+    profiles: [robot]
+    image: ur12e-infer:jazzy
+    platform: linux/amd64
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    network_mode: host
+    stdin_open: true
+    tty: true
+    environment:
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-42}"
+    command: [ur12e-supervisor]

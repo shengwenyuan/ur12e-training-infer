@@ -1,0 +1,117 @@
+diff --git a/src/openpi/experiments/__init__.py b/src/openpi/experiments/__init__.py
+index f33ef52..41fbeb1 100644
+--- a/src/openpi/experiments/__init__.py
++++ b/src/openpi/experiments/__init__.py
+@@ -4,9 +4,10 @@ from collections.abc import Callable
+ import dataclasses
+ import importlib
+ from pathlib import Path
+-from typing import Literal
++from typing import TYPE_CHECKING, Literal
+ 
+-from openpi.training import config as training_config
++if TYPE_CHECKING:
++    from openpi.training import config as training_config
+ 
+ TrainingMode = Literal["smoke", "train"]
+ 
+diff --git a/src/openpi/experiments/arx5_joint_rtc/compute_norm_stats.py b/src/openpi/experiments/arx5_joint_rtc/compute_norm_stats.py
+index 97a4e9b..53aaec8 100644
+--- a/src/openpi/experiments/arx5_joint_rtc/compute_norm_stats.py
++++ b/src/openpi/experiments/arx5_joint_rtc/compute_norm_stats.py
+@@ -2,6 +2,7 @@ from __future__ import annotations
+ 
+ import argparse
+ import json
++import os
+ from pathlib import Path
+ 
+ from openpi.experiments import compute_norm_stats as base_norm_stats
+@@ -45,6 +46,7 @@ def main() -> None:
+         checkpoint_root=args.checkpoint_root,
+     )
+     config = rtc_config.create_norm_stats_config(options)
++    os.environ["HF_LEROBOT_HOME"] = str(options.dataset_root)
+     dataset = norm_validation.dataset_root(options, config.data.repo_id)
+     summary = {
+         "experiment": "arx5_joint_rtc",
+diff --git a/src/openpi/experiments/arx5_joint_rtc/config_test.py b/src/openpi/experiments/arx5_joint_rtc/config_test.py
+index 4cdc3c1..f577a73 100644
+--- a/src/openpi/experiments/arx5_joint_rtc/config_test.py
++++ b/src/openpi/experiments/arx5_joint_rtc/config_test.py
+@@ -46,7 +46,7 @@ def test_norm_config_uses_independent_batch_contract(tmp_path):
+     config = rtc_config.create_norm_stats_config(options)
+ 
+     assert config.batch_size == 64
+-    assert config.num_workers == 8
++    assert config.num_workers == 16
+     assert config.assets_dirs == (tmp_path / "norm/assets/pi05_arx5_joint_train_rtc").resolve()
+ 
+ 
+diff --git a/src/openpi/experiments/arx5_joint_rtc/contract.py b/src/openpi/experiments/arx5_joint_rtc/contract.py
+index bd99c01..cf87d8f 100644
+--- a/src/openpi/experiments/arx5_joint_rtc/contract.py
++++ b/src/openpi/experiments/arx5_joint_rtc/contract.py
+@@ -170,8 +170,8 @@ def _validate_contract(raw: dict) -> None:
+         raise ValueError("RTC semantics differ from the supported training-time conditioning contract")
+     if maximum_delay > raw["model"]["action_horizon"]:
+         raise ValueError("rtc.maximum_delay_exclusive must not exceed action_horizon")
+-    if raw["norm_stats"] != {"batch_size": 64, "num_workers": 8}:
+-        raise ValueError("RTC norm stats must use batch_size=64 and num_workers=8")
++    if raw["norm_stats"] != {"batch_size": 64, "num_workers": 16}:
++        raise ValueError("RTC norm stats must use batch_size=64 and num_workers=16")
+     train = raw["train"]
+     for key in ("batch_size", "fsdp_devices", "num_workers", "num_train_steps", "log_interval"):
+         _positive(train[key], f"train.{key}")
+diff --git a/src/openpi/experiments/arx5_joint_rtc/organize_screwdriver_bits_20260828_pi05_train_rtc_v1_test.toml b/src/openpi/experiments/arx5_joint_rtc/organize_screwdriver_bits_20260828_pi05_train_rtc_v1_test.toml
+index ae7cbff..0049870 100644
+--- a/src/openpi/experiments/arx5_joint_rtc/organize_screwdriver_bits_20260828_pi05_train_rtc_v1_test.toml
++++ b/src/openpi/experiments/arx5_joint_rtc/organize_screwdriver_bits_20260828_pi05_train_rtc_v1_test.toml
+@@ -32,13 +32,13 @@ loss = "postfix_only"
+ 
+ [norm_stats]
+ batch_size = 64
+-num_workers = 8
++num_workers = 16
+ 
+ [train]
+ approved = true
+ batch_size = 8
+ fsdp_devices = 8
+-num_workers = 8
++num_workers = 16
+ num_train_steps = 12000
+ log_interval = 10
+ ema_decay = 0.999
+diff --git a/src/openpi/experiments/arx5_joint_rtc/profile.toml b/src/openpi/experiments/arx5_joint_rtc/profile.toml
+index 2364add..06a38ee 100644
+--- a/src/openpi/experiments/arx5_joint_rtc/profile.toml
++++ b/src/openpi/experiments/arx5_joint_rtc/profile.toml
+@@ -32,13 +32,13 @@ loss = "postfix_only"
+ 
+ [norm_stats]
+ batch_size = 64
+-num_workers = 8
++num_workers = 16
+ 
+ [train]
+ approved = false
+ batch_size = 8
+ fsdp_devices = 8
+-num_workers = 8
++num_workers = 16
+ num_train_steps = 10000
+ log_interval = 10
+ ema_decay = 0.999
+diff --git a/src/openpi/experiments/arx5_joint_rtc/train.py b/src/openpi/experiments/arx5_joint_rtc/train.py
+index edca0f5..73b401e 100644
+--- a/src/openpi/experiments/arx5_joint_rtc/train.py
++++ b/src/openpi/experiments/arx5_joint_rtc/train.py
+@@ -200,6 +200,7 @@ def main() -> None:
+     args = parse_args()
+     options = options_from_args(args)
+     config = rtc_config.create_train_config(options)
++    os.environ["HF_LEROBOT_HOME"] = str(options.dataset_root)
+     print(json.dumps(build_summary(options, config), indent=2), flush=True)
+     if args.dry_run:
+         return

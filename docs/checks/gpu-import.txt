@@ -1,0 +1,4 @@
+{'jax': '0.5.3', 'flax': '0.10.2', 'torch': '2.7.1', 'lerobot': '0.6.1', 'numpy': '2.2.6', 'ur12e-training-infer': '0.1.0'}
+Installed GPU package source: /opt/venv/lib/python3.12/site-packages/training/pi05_rtc/backend.py
+Devices in CPU-only import test: [CpuDevice(id=0)]
+GPU image import check: PASS; NVIDIA execution NOT RUN

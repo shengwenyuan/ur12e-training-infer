@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: owned-code-checks
+        name: UR12e formatting and lint
+        language: system
+        entry: python -m training.check
+        pass_filenames: false
+        types: [python]

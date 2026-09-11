@@ -1,0 +1,2 @@
+-r requirements-cpu.in
+jax[cuda12]==0.5.3

@@ -1,0 +1,12 @@
+........                                                                 [100%]
+=============================== warnings summary ===============================
+training/pi05_rtc/vendor/openpi/src/openpi/experiments/arx5_joint_rtc/model_test.py: 17 warnings
+  /private/tmp/ur12e-testenv/lib/python3.12/site-packages/jax/extend/linear_util.py:38: DeprecationWarning: linear_util.wrap_init is missing a DebugInfo object. This behavior is deprecated, use api_util.debug_info() to construct a proper DebugInfo object and propagate it to this function. See https://github.com/jax-ml/jax/issues/26480 for more details.
+    debug_info = debug_info or _missing_debug_info("linear_util.wrap_init")
+
+training/pi05_rtc/vendor/openpi/src/openpi/experiments/arx5_joint_rtc/model_test.py: 330 warnings
+  /private/tmp/ur12e-testenv/lib/python3.12/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+    if jnp.shape(val) != jnp.shape(abs_val):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+8 passed, 347 warnings in 45.21s

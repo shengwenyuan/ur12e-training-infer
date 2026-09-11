@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ur12e-training-infer"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = ["numpy==2.2.6", "msgpack==1.1.1", "websockets==15.0.1"]
+
+[project.scripts]
+ur12e-train = "training.cli:main"
+ur12e-model-server = "infer.pi05_rtc.server:main"
+ur12e-infer = "infer.client.main:main"
+ur12e-supervisor = "infer.supervisor.main:main"
+
+[tool.setuptools.packages.find]
+include = ["training*", "infer*"]
+exclude = ["training.pi05_rtc.vendor*"]
+
+[tool.setuptools.package-data]
+"training.pi05_rtc" = ["vendor/openpi/**/*.py", "vendor/openpi/LICENSE*", "config/*.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["dataset: requires official LeRobot and an exported dataset", "backend: requires the numerical pi05 dependencies"]
+
+[tool.black]
+line-length = 80
+extend-exclude = "vendor/"
+
+[tool.pylint.main]
+ignore-paths = ["training/pi05_rtc/vendor/.*"]
+
+[tool.pylint.format]
+max-line-length = 80
+
+[tool.pylint.design]
+max-attributes = 12
+max-args = 8
+max-positional-arguments = 8
+
+# Immutable contracts and resource owners deliberately have small interfaces.
+[tool.pylint.messages_control]
+disable = ["too-few-public-methods"]

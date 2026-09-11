@@ -1,0 +1,41 @@
+{
+  "motion_accepted": false,
+  "home_route_accepted": false,
+  "stop_hold_accepted": false,
+  "gripper_accepted": false,
+  "camera_accepted": false,
+  "host": "",
+  "serial": "",
+  "ready_q_rad": [
+    0,
+    -1.5707963267948966,
+    -1.5707963267948966,
+    -1.5707963267948966,
+    1.5707963267948966,
+    0
+  ],
+  "servo_hz": 120,
+  "home_speed": 0.1,
+  "home_acceleration": 0.1,
+  "stop_deceleration": 1.0,
+  "watchdog_hz": 5,
+  "gripper_port": 63352,
+  "gripper_speed": 32,
+  "gripper_force": 32,
+  "cameras": {
+    "wrist": "",
+    "third_left": "",
+    "third_right": ""
+  },
+  "policy_limits": {
+    "lease_seconds": 0.3,
+    "feedback_seconds": 0.25,
+    "home_timeout": 45.0,
+    "home_tolerance": 0.01,
+    "settle_seconds": 0.3,
+    "stationary_speed": 0.01,
+    "max_joint_step": 0.02,
+    "max_joint_speed": 0.3,
+    "max_gripper_step": 15.0
+  }
+}

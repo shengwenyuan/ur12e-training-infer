@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "phases": [
+    "DISARMED",
+    "HOMING",
+    "READY",
+    "RUNNING",
+    "STOPPING",
+    "HOLDING",
+    "FAULT"
+  ],
+  "checks": [
+    "HOME before policy",
+    "Space hold",
+    "HOME on restart",
+    "supervisor kill revokes client"
+  ]
+}
