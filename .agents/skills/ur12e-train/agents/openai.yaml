@@ -1,0 +1,4 @@
+interface:
+  display_name: "UR12e Training Workflow"
+  short_description: "Align TOML and W&B, then verify remote training"
+  default_prompt: "Use $ur12e-train to align a UR12e training TOML, W&B identity and remote target, then carry out the authorized launch stages."

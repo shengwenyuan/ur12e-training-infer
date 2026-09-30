@@ -20,3 +20,8 @@
   secrets, local station identities and /plans/ out of Git and image contexts.
 - Docker Hub publication requires an explicit request; preparation/builds do not
   imply a push. Preserve colleagues' externally mounted data and checkpoints.
+
+- For training configuration, W&B setup, remote launches or recovery, use the
+  repository skill [ur12e-train](.agents/skills/ur12e-train/SKILL.md). Discover
+  the selected SSH user, scheduler account and W&B entity independently; the
+  historical Explorer run is evidence, not an account or parameter restriction.
