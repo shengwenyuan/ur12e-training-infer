@@ -119,3 +119,30 @@ def test_imported_rtc_primitives_match_independent_equations():
         mixed, jnp.ones_like(mixed), actions, mask, -0.1
     )
     np.testing.assert_array_equal(updated[1, :3], actions[1, :3])
+
+
+@pytest.mark.parametrize("devices,batch", [(1, 8), (2, 16), (8, 16)])
+def test_supported_fsdp_profiles(tmp_path, devices, batch):
+    path = tmp_path / "profile.toml"
+    text = (
+        profile.DEFAULT.read_text()
+        .replace("fsdp_devices = 1", f"fsdp_devices = {devices}")
+        .replace("batch_size = 8", f"batch_size = {batch}")
+    )
+    path.write_text(text)
+    assert profile.load(path)["train"]["fsdp_devices"] == devices
+
+
+@pytest.mark.parametrize("devices,batch", [(3, 12), (4, 16), (2, 15)])
+def test_fsdp_rejects_unsupported_or_indivisible_profiles(
+    tmp_path, devices, batch
+):
+    path = tmp_path / "profile.toml"
+    text = (
+        profile.DEFAULT.read_text()
+        .replace("fsdp_devices = 1", f"fsdp_devices = {devices}")
+        .replace("batch_size = 8", f"batch_size = {batch}")
+    )
+    path.write_text(text)
+    with pytest.raises(ValueError, match="divisible"):
+        profile.load(path)

@@ -49,10 +49,12 @@ def load(path: str | Path = DEFAULT) -> dict:
                 raise ValueError(f"{section}.{key} must be a positive integer")
     train = raw["train"]
     if (
-        train["fsdp_devices"] not in (1, 8)
+        train["fsdp_devices"] not in (1, 2, 8)
         or train["batch_size"] % train["fsdp_devices"]
     ):
-        raise ValueError("batch size must divide 1 or 8 FSDP devices")
+        raise ValueError(
+            "batch size must be divisible by 1, 2 or 8 FSDP devices"
+        )
     if type(train["num_workers"]) is not int or train["num_workers"] < 0:
         raise ValueError("num_workers must be nonnegative")
     if type(train["wandb_enabled"]) is not bool:

@@ -1,0 +1,43 @@
+# Aligned 2026-09-15: 30 source demonstrations / 87 retained intervals.
+# Two H200s, zero-prefix pi05 RTC baseline; mounted pi05-base JAX params.
+[model]
+name = "pi05_rtc"
+action_dim = 32
+action_horizon = 50
+max_token_len = 200
+discrete_state_input = true
+[rtc]
+maximum_delay_exclusive = 1
+prefix_timestep_openpi = 0.0
+loss = "postfix_only"
+delay_distribution = "uniform"
+[run]
+name = "ur12e_pick_place_pi05_zero_prefix_2gpu_v1"
+seed = 42
+project = "ur12e_training"
+[train]
+batch_size = 16
+fsdp_devices = 2
+num_workers = 0
+num_train_steps = 5000
+log_interval = 10
+ema_decay = 0.999
+wandb_enabled = true
+[lr_schedule]
+warmup_steps = 250
+peak_lr = 0.000025
+decay_steps = 5000
+decay_lr = 0.0000025
+[optimizer]
+b1 = 0.9
+b2 = 0.95
+eps = 0.00000001
+weight_decay = 0.0000000001
+clip_gradient_norm = 1.0
+[checkpoint]
+save_interval = 250
+keep_period = 1000
+[smoke]
+num_train_steps = 5
+[norm_stats]
+batch_size = 64
