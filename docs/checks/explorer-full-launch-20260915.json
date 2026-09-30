@@ -1,0 +1,120 @@
+{
+  "experiment": "ur12e_pick_place_pi05_zero_prefix_2gpu_v1",
+  "target_steps": 5000,
+  "roundtrip_job": "10351772",
+  "source": "/home/li.xinle/ur12e-training-infer/releases/a8acb317cfed",
+  "image": "/projects/vla_training/li.xinle/ur12e-training-infer/containers/ur12e-0.1.0-gpu-c77b06ca.sif",
+  "dataset_sha256": "77c98a1e61be400c73572ff2e68ed69e85cd8c620f3c540a3ee08ab8fbf9f6e7",
+  "wandb_entity": "sals-northeastern-university",
+  "wandb_project": "ur12e_training",
+  "segments": [
+    {
+      "total_steps": 1000,
+      "job_id": "10351884",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--account=x.li1",
+        "--partition=gpu-short",
+        "--nodes=1",
+        "--ntasks=1",
+        "--gres=gpu:h200:2",
+        "--cpus-per-task=16",
+        "--mem=256G",
+        "--time=02:00:00",
+        "--job-name=ur12e-full-1000-v1",
+        "--output=/projects/vla_training/li.xinle/ur12e-training-infer/runs/pick-place-zero-prefix-2gpu-v1/logs/full-%j.log",
+        "/home/li.xinle/ur12e-training-infer/preparation/20260915-online-v1/full.sbatch",
+        "1000"
+      ]
+    },
+    {
+      "total_steps": 2000,
+      "job_id": "10351885",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--account=x.li1",
+        "--partition=gpu-short",
+        "--nodes=1",
+        "--ntasks=1",
+        "--gres=gpu:h200:2",
+        "--cpus-per-task=16",
+        "--mem=256G",
+        "--time=02:00:00",
+        "--job-name=ur12e-full-2000-v1",
+        "--output=/projects/vla_training/li.xinle/ur12e-training-infer/runs/pick-place-zero-prefix-2gpu-v1/logs/full-%j.log",
+        "--dependency=afterok:10351884",
+        "--kill-on-invalid-dep=yes",
+        "/home/li.xinle/ur12e-training-infer/preparation/20260915-online-v1/full.sbatch",
+        "2000"
+      ]
+    },
+    {
+      "total_steps": 3000,
+      "job_id": "10351886",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--account=x.li1",
+        "--partition=gpu-short",
+        "--nodes=1",
+        "--ntasks=1",
+        "--gres=gpu:h200:2",
+        "--cpus-per-task=16",
+        "--mem=256G",
+        "--time=02:00:00",
+        "--job-name=ur12e-full-3000-v1",
+        "--output=/projects/vla_training/li.xinle/ur12e-training-infer/runs/pick-place-zero-prefix-2gpu-v1/logs/full-%j.log",
+        "--dependency=afterok:10351885",
+        "--kill-on-invalid-dep=yes",
+        "/home/li.xinle/ur12e-training-infer/preparation/20260915-online-v1/full.sbatch",
+        "3000"
+      ]
+    },
+    {
+      "total_steps": 4000,
+      "job_id": "10351888",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--account=x.li1",
+        "--partition=gpu-short",
+        "--nodes=1",
+        "--ntasks=1",
+        "--gres=gpu:h200:2",
+        "--cpus-per-task=16",
+        "--mem=256G",
+        "--time=02:00:00",
+        "--job-name=ur12e-full-4000-v1",
+        "--output=/projects/vla_training/li.xinle/ur12e-training-infer/runs/pick-place-zero-prefix-2gpu-v1/logs/full-%j.log",
+        "--dependency=afterok:10351886",
+        "--kill-on-invalid-dep=yes",
+        "/home/li.xinle/ur12e-training-infer/preparation/20260915-online-v1/full.sbatch",
+        "4000"
+      ]
+    },
+    {
+      "total_steps": 5000,
+      "job_id": "10351889",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--account=x.li1",
+        "--partition=gpu-short",
+        "--nodes=1",
+        "--ntasks=1",
+        "--gres=gpu:h200:2",
+        "--cpus-per-task=16",
+        "--mem=256G",
+        "--time=02:00:00",
+        "--job-name=ur12e-full-5000-v1",
+        "--output=/projects/vla_training/li.xinle/ur12e-training-infer/runs/pick-place-zero-prefix-2gpu-v1/logs/full-%j.log",
+        "--dependency=afterok:10351888",
+        "--kill-on-invalid-dep=yes",
+        "/home/li.xinle/ur12e-training-infer/preparation/20260915-online-v1/full.sbatch",
+        "5000"
+      ]
+    }
+  ]
+}

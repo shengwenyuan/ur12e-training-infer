@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "job_id": "10351656",
+  "slurm_state": "COMPLETED",
+  "exit_code": "0:0",
+  "elapsed": "00:02:38",
+  "node": "d4055",
+  "gpu": "2 x NVIDIA H200",
+  "global_batch": 16,
+  "steps": [
+    {
+      "step": 0,
+      "grad_norm": 0.3382,
+      "loss": 0.0335,
+      "param_norm": 1802.3865
+    },
+    {
+      "step": 1,
+      "grad_norm": 0.2981,
+      "loss": 0.0406,
+      "param_norm": 1802.3865
+    },
+    {
+      "step": 2,
+      "grad_norm": 0.2046,
+      "loss": 0.028,
+      "param_norm": 1802.3865
+    },
+    {
+      "step": 3,
+      "grad_norm": 0.3366,
+      "loss": 0.0326,
+      "param_norm": 1802.3865
+    },
+    {
+      "step": 4,
+      "grad_norm": 0.4178,
+      "loss": 0.0354,
+      "param_norm": 1802.3865
+    }
+  ],
+  "wandb": "disabled",
+  "checkpoint_saved": false,
+  "source_snapshot": "f6d7c2183240",
+  "profile_sha256": "8ce6f65c57ba70fca5a680d3e0fa9c9017ebfadf71caefad7ba840261effdb80",
+  "sif_sha256": "1396c34cdc60adad1fc8473102ebb5d1690df791ac2ad6f9a6d59ae7a308a22b",
+  "dataset_sha256": "77c98a1e61be400c73572ff2e68ed69e85cd8c620f3c540a3ee08ab8fbf9f6e7",
+  "preparation_job": "10351337",
+  "weights_verification_job": "10351508"
+}

@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-09-15T18:20:38.138541+00:00",
+  "completed_optimizer_steps": 5000,
+  "checkpoint_index": 4999,
+  "checkpoint": "/projects/vla_training/li.xinle/ur12e-training-infer/runs/pick-place-zero-prefix-2gpu-v1/checkpoints/pi05_rtc/ur12e_pick_place_pi05_zero_prefix_2gpu_v1/4999",
+  "commit_timestamp_nsecs": 1789452595458667747,
+  "wandb_url": "https://wandb.ai/sals-northeastern-university/ur12e_training/runs/jenvhjmn",
+  "norm_sha256": "046695fc3cca5528f2cfd768125bf16a116b7296a8c92b7c7e7703231648556b",
+  "jobs": [
+    {
+      "job_id": "10351884",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:40:01"
+    },
+    {
+      "job_id": "10351885",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:39:51"
+    },
+    {
+      "job_id": "10351886",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:39:45"
+    },
+    {
+      "job_id": "10351888",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:40:22"
+    },
+    {
+      "job_id": "10351889",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:39:39"
+    }
+  ],
+  "active_training_seconds": 11978,
+  "last_logged_step": 4990,
+  "last_logged_loss": 0.002,
+  "last_logged_grad_norm": 0.0621,
+  "verification": [
+    "Slurm all five segments completed successfully",
+    "saved optimizer step read directly through TensorStore equals 5000",
+    "final checkpoint commit marker present",
+    "parameter and training-state metadata/OCDBT manifests present",
+    "saved normalization assets match training normalization",
+    "W&B run ID retained across all segments"
+  ],
+  "limitations": [
+    "No final checkpoint full-model reload was performed; earlier 2-to-4-step roundtrip acceptance passed",
+    "No Isaac rollout or physical task success measured",
+    "Only final checkpoint directory 4999 currently retained"
+  ],
+  "interventions": []
+}

@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "job_id": "10351772",
+  "save_steps": [
+    0,
+    1
+  ],
+  "resumed_steps": [
+    2,
+    3
+  ],
+  "checkpoints": [
+    "/projects/vla_training/li.xinle/ur12e-training-infer/runs/pick-place-zero-prefix-2gpu-v1/checkpoints/pi05_rtc/ur12e_pick_place_pi05_zero_prefix_2gpu_roundtrip_v1/1",
+    "/projects/vla_training/li.xinle/ur12e-training-infer/runs/pick-place-zero-prefix-2gpu-v1/checkpoints/pi05_rtc/ur12e_pick_place_pi05_zero_prefix_2gpu_roundtrip_v1/3"
+  ],
+  "wandb_id": "oeeoisav",
+  "wandb_url": "https://wandb.ai/sals-northeastern-university/ur12e_training/runs/oeeoisav",
+  "gates": [
+    "complete checkpoint save",
+    "restored model, optimizer and EMA state",
+    "step continuity 2 to 4",
+    "normalization and policy assets",
+    "same online W&B run ID"
+  ]
+}

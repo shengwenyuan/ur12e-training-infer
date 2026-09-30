@@ -1,8 +1,17 @@
 # Pipeline landing acceptance — 2026-09-12
 
-Software implementation is complete; GPU numerical execution and station
-acceptance remain open. This report distinguishes mock execution from physical
-motion. No physical device was contacted and no Docker Hub image was pushed.
+Original software acceptance is recorded below. Update 2026-09-15: the selected
+Docker Hub dependency image plus frozen source completed five real pi05-base
+training steps on two H200s; see the [Explorer acceptance](explorer-two-gpu-plan.md)
+and [compact report](checks/explorer-smoke-10351656.json). Checkpoint roundtrip
+job 10351772 also passed with real model/AdamW/EMA restore and online W&B
+resume; see its [report](checks/explorer-roundtrip-10351772.json). Full training
+completed all five segments and 5,000 optimizer steps; final checkpoint 4999
+was verified through its saved scalar step, commit marker and assets. See the
+[completion report](checks/explorer-full-completion.json). Station
+acceptance remains open. No physical device was contacted and no
+Docker Hub image was pushed by this work. The tables below retain the original
+2026-09-12 evidence and its scope.
 
 ## Executed checks
 
