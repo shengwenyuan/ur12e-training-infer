@@ -2,7 +2,7 @@
 
 > **Code style requirement: Economical code, exceptional readability, and excellent abstraction design.**
 
-Status: implemented / GPU and station acceptance pending; authorized on 2026-09-12. Updated: 2026-09-12.
+Status: GPU smoke, checkpoint resume and full 5,000-step training accepted; rollout and station acceptance pending. Updated: 2026-09-15.
 
 Build a multi-model training and inference repository. The first backend is
 pi05 training-time RTC, inherited from the local 1011 implementation. Shared
@@ -43,8 +43,9 @@ or a requirement to inherit from a pi05 base class.
 5. Validate the two local processes through faults, URSim, camera shadow and
    separately agreed physical tests.
 
-Implementation is authorized. No training job, remote deployment or physical
-hardware access has been performed. GO HOME before model handoff and Space
+Implementation is authorized. Explorer source/data staging and CPU preparation
+have passed; the approved two-H200 smoke job 10351656 completed all five steps successfully
+with finite metrics and exit 0. No physical hardware acceptance has been performed. GO HOME before model handoff and Space
 position hold are confirmed; TI05-A05 covers this gate. Software acceptance has passed; see [acceptance](docs/acceptance.md) for the
 GPU and physical cases that remain NOT RUN.
 
@@ -52,6 +53,16 @@ The user additionally confirmed future Docker Hub image sharing for colleagues
 on GPU devices. Prepare release commands and offline effect/latency evaluation;
 do not publish until requested. Version/dependency selection is delegated.
 
-Current delivery gate: the user confirmed simple pipeline validation is sufficient
-on the Mac. Further image refresh, GPU and physical acceptance await resources;
-no background training, benchmark or publishing task remains active.
+Current delivery gate: keep Mac checks lightweight. Explorer image/data/weight
+preparation, GPU smoke job 10351656 and checkpoint roundtrip job 10351772
+have passed. The user authorized online W&B and full 5,000-step training;
+all five dependent segments completed successfully, starting with job 10351884.
+Final checkpoint 4999 contains optimizer step 5000; W&B run is jenvhjmn. Physical acceptance and image publication
+remain separate. See the [Explorer record](docs/explorer-two-gpu-plan.md).
+
+
+RTC follow-up (2026-09-30): the user approved a fresh pi05-base run on the same
+dataset with uniform action-prefix lengths 0..9. CPU preparation 10697077 passed; GPU smoke/restore gate 10697078 is queued.
+The gate will submit the authorized 5,000-step full run automatically after
+successful RTC smoke and checkpoint recovery checks. See [RTC training v1](docs/explorer-rtc-training-v1.md).
+Inference/runtime changes and hardware evaluation are outside this launch.

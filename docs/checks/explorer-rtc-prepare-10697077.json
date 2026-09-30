@@ -1,0 +1,45 @@
+{
+  "action_shape": [
+    16,
+    50,
+    32
+  ],
+  "algorithm_sha256": "0f584cd3430b7066f06498fc5b6c4a16a4555178b3c46651c9d3043ed4c92980",
+  "dataset_sha256": "77c98a1e61be400c73572ff2e68ed69e85cd8c620f3c540a3ee08ab8fbf9f6e7",
+  "dependency_lock_sha256": "ce635024c72b332e8c095ed3945e0345f87f5c366dfaa5cb82321bc6452011ca",
+  "episodes": 87,
+  "frames": 8800,
+  "image_shapes": {
+    "base_0_rgb": [
+      16,
+      224,
+      224,
+      3
+    ],
+    "left_wrist_0_rgb": [
+      16,
+      224,
+      224,
+      3
+    ],
+    "right_wrist_0_rgb": [
+      16,
+      224,
+      224,
+      3
+    ]
+  },
+  "initialization_restore": "NOT_RUN; required in GPU smoke",
+  "norm_identity": "c656ed140b89bdfef0cd673ee834fd74ec3c6ca96411999acdec903163f074d4",
+  "packages": {
+    "flax": "0.10.2",
+    "jax": "0.5.3",
+    "lerobot": "0.6.1",
+    "torch": "2.7.1",
+    "transformers": "5.4.0"
+  },
+  "profile_sha256": "9cc5422ede140914d35343c4e59ad369d27d15a9ae23cec5add459108db4fc04",
+  "python": "3.12.3",
+  "status": "PASS",
+  "tokenizer_sha256": "8986bb4f423f07f8c7f70d0dbe3526fb2316056c17bae71b1ea975e77a168fc6"
+}
